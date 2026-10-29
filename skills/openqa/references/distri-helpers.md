@@ -21,7 +21,7 @@ Inherit with `use Mojo::Base '<class>';`. All below derive from `opensusebasetes
 
 ## Console selection
 
-**Start every console module with `select_serial_terminal;`** (`use serial_terminal 'select_serial_terminal';`) instead of branching on BACKEND: no VNC typing, no pixel matching. `select_serial_terminal(0)` (= `select_user_serial_terminal`) picks the `user-` twin.
+**Start every console module with `select_text_console;`** (`use serial_terminal 'select_text_console';`): `select_serial_terminal` everywhere except ppc64le OFW, where it keeps `root-console` because the hvc1 getty comes from `system_prepare`. No BACKEND branching, no VNC typing. `select_serial_terminal(0)` (= `select_user_serial_terminal`) picks the `user-` twin.
 
 | Condition (first match wins) | Console |
 |---|---|
