@@ -70,6 +70,7 @@ PUBLISH_HDD_1:<parent TEST>=vr-<user>-<PR>.qcow2 HDD_1:<child TEST>=vr-<user>-<P
 
 - **`--parental-inheritance`:** by default an unscoped `KEY=VALUE` reaches the named job and its cloned children, not parents - parents stay on production code despite `CASEDIR=`. Always global: `WORKER_CLASS`, `_GROUP`, `_GROUP_ID`.
 - **Parallel cluster:** clone the parallel parent ("server"); cloning one child brings only that child and the parent, not siblings. -> references/multimachine.md "Dependency settings"
+- **Coverage job as source:** its `HDD_1`/`AUTOYAST` can exist only on the source branch (`coverage_minimal.xml`), so the clone dies in `boot_to_desktop` before the test; pick a source whose image and autoyast exist in the branch.
 
 ## Settings override grammar
 

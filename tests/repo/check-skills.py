@@ -42,7 +42,7 @@ BUDGETS = {
     "references/review-workflow.md": 13000,
     "references/bugs-and-tickets.md": 16000,
     "references/openqa-model.md": 14100,
-    "references/clone-and-run.md": 14000,
+    "references/clone-and-run.md": 14250,
     "references/job-triage.md": 15500,
     "references/distri-helpers.md": 17300,
     "references/module-templates.md": 16000,
