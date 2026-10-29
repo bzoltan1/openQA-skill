@@ -50,7 +50,7 @@ install_package('7zip', trup_apply => 1) if (script_run('rpm -q 7zip'));   # tes
 | `trup_apply => 1` | `transactional-update apply`, no reboot. End-user tools and services only, never kernel or system libraries. Dies if combined with `trup_reboot` |
 | `trup_continue => 1` | adds `-c`: build on the pending snapshot instead of discarding it. **Alone it activates nothing**: no package until a reboot or apply |
 | `trup_extra`, `zypper_extra` | extra package names for one system type (not the POD's `trup_packages`/`zypper_packages`) |
-| `timeout` | the `// 500` in the sub is dead code; effective defaults are 180 s transactional, 700 s zypper, so set it for big installs |
+| `timeout` | the `// 500` in the sub is dead code: effective defaults are 180 s transactional, 700 s zypper; `trup_apply` then runs with its own 30 s default. Set it for big installs |
 
 - `install_available_packages($list, repo => $alias, ...)` installs only names `zypper se -t package --match-exact` finds, defaults `trup_continue` to 1, returns 0 if none.
 - **Replaces**: `assert_script_run 'zypper -n in foo'`; hand-written `if (is_transactional) {...} else {...}`. Plain `zypper_call 'in ...'` only in modules that never run on transactional products.
@@ -121,6 +121,7 @@ select_serial_terminal;
 | `reboot_on_changes()` | same comparison without the assertion |
 | `process_reboot(trigger => 0, expected_grub => 1, expected_passphrase => 0)` | `trigger => 1` issues the reboot, else only observes; uses `root-console` needles (grub, login) even in a serial-only module, then switches back. `expected_grub` defaults to 0 on VMware |
 
+- **After `trup_apply`, `/` is still the old subvolume and the new one is the default**: a later `reboot_on_changes` reboots, `check_reboot_changes(0)` dies.
 - Packages -> references/distri-helpers.md "Install or remove packages"; anything else `trup_call`, not raw `transactional-update` strings.
 - Already transactional-aware: `install_package`, `uninstall_package`, `fully_patch_system`, `add_suseconnect_product`.
 - Module shape -> references/module-templates.md "Transactional test".
